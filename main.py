@@ -151,11 +151,18 @@ def calculate_director_statistics(df):
         most_watched_film = df.loc[df["Watched by"].idxmax()]
         least_watched_film = df.loc[df["Watched by"].idxmin()]
 
+        average_rating_top_5 = round(df.nlargest(5, "Weighted average")["Weighted average"].mean(), 2)
+        average_rating_top_3 = round(df.nlargest(3, "Weighted average")["Weighted average"].mean(), 2)
+        num_films_above_rating_4 = len(df[df["Weighted average"] >= 4])
+
         return {
             "Number of films": num_films,
-            "Latest release year": latest_year,
             "Earliest release year": earliest_year,
+            "Latest release year": latest_year,
             "Average rating": avg_rating,
+            "Average rating of top 5 films": average_rating_top_5,
+            "Average rating of top 3 films": average_rating_top_3,
+            "Number of films rated 4 or higher": num_films_above_rating_4,
             "Total watched": total_watched,
             "Average watched": avg_watched,
             "Standard deviation of watched": std_watched,
